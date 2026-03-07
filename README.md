@@ -20,3 +20,18 @@ config: configuration class of the Application
 How to RUn the Project:
 mvn clean install :
 mvn spring-boot:run
+ER(Entity Relation) Diagram
++-------------------+
+|      Student      |
++-------------------+
+| id (PK)           |
+| firstName         |
+| lastName          |
+| email (unique)    |
+| age               |
++-------------------+
+JPA Annotations:Are Annotations used to create a relation between java objects and database
+some JPA used in this ptojects
+@Id -> used to tell us that the column is primary key
+@Entity -> Used to define a table
+@Column -> Used to define column of the table
