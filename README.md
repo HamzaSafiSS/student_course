@@ -17,6 +17,7 @@ Entity: Represents a database table in Java as a class.
 dto:represent data that is sent or received.
 exeption: it handle error
 config: configuration class of the Application
+service:Handles business logic like handling different conditions.
 How to RUn the Project:
 mvn clean install :
 mvn spring-boot:run
@@ -31,7 +32,7 @@ ER(Entity Relation) Diagram
 | age               |
 +-------------------+
 JPA Annotations:Are Annotations used to create a relation between java objects and database
-some JPA used in this ptojects
+some JPA used in this projects
 @Id -> used to tell us that the column is primary key
 @Entity -> Used to define a table
 @Column -> Used to define column of the table
