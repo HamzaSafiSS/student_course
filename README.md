@@ -36,3 +36,13 @@ some JPA used in this projects
 @Id -> used to tell us that the column is primary key
 @Entity -> Used to define a table
 @Column -> Used to define column of the table
+DAY-3
+1. Why Service Layer Is Important
+The service layer contains the business logic of the application.
+Makes the application easier to maintain and test
+2. Difference Between Repository and Service
+  Repository: Handles database operations
+  Service: Contains business logic and validations
+3. Business Rule Explanation
+  Email must be unique for each student
+   If a student ID does not exist, a custom exception is thrown
