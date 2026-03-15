@@ -46,7 +46,7 @@ Makes the application easier to maintain and test
 3. Business Rule Explanation
   Email must be unique for each student
    If a student ID does not exist, a custom exception is thrown
-DAY4
+DAY 4
 1. API endpoint Table
    | Method | Endpoint           | Description        |
    | ------ | ------------------ | ------------------ |
@@ -73,3 +73,19 @@ In General We have 5 but I will add here only 3
 1. 2XX = Successfully handled.
 2. 4XX = Client Problem
 3. 5XX = Server error
+
+DAY-5
+Importance of DTO
+DTO Control Data Exchange between Client and server
+Allows Validation
+
+| Entity                     | DTO                             |
+| -------------------------- | ------------------------------- |
+| Represents database table  | Represents API request/response |
+| Used by repository         | Used by controller              |
+| Contains persistence logic | Contains validation rules       |
+
+Validation Annotation comes from Jakarta Bean Validation and used to automatically validate incoming API request.
+It ensures invalid data is rejected nefore it reaches database.
+
+Global exception handling captures validation errors and returns a consistent structured response to the client.
