@@ -9,9 +9,9 @@ import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentService {
-
+//A class uses implements to promise to provide concrete implementations for all methods defined in an interface.
+//extends: Creates a subclass that inherits properties and methods from a parent class, promoting code reuse.
     private final StudentRepository studentRepository;
-
     // Dependency Injection
     public StudentServiceImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;

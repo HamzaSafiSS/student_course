@@ -46,3 +46,30 @@ Makes the application easier to maintain and test
 3. Business Rule Explanation
   Email must be unique for each student
    If a student ID does not exist, a custom exception is thrown
+DAY4
+1. API endpoint Table
+   | Method | Endpoint           | Description        |
+   | ------ | ------------------ | ------------------ |
+   | POST   | /api/students      | Create new student |
+   | GET    | /api/students      | Get all students   |
+   | GET    | /api/students/{id} | Get student by ID  |
+   | PUT    | /api/students/{id} | Update student     |
+   | DELETE | /api/students/{id} | Delete student     |
+
+2. HTTP Method Explanation
+   | Method | Purpose                  |
+   | ------ | ------------------------ |
+   | GET    | Retrieve data            |
+   | POST   | Create new resource      |
+   | PUT    | Update existing resource |
+   | DELETE | Remove resource          |
+
+3. Status Code Explanation 
+200 - Request Successfull
+201 - Resource Created
+204 - Resource Deleted
+404 - Resource not Found
+In General We have 5 but I will add here only 3
+1. 2XX = Successfully handled.
+2. 4XX = Client Problem
+3. 5XX = Server error

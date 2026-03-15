@@ -1,6 +1,6 @@
 package com.hamza.studentcourse.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.*; //This imports JPA annotations like @Entity, @Table, @Id...
 
 @Entity
 @Table(name = "students")
