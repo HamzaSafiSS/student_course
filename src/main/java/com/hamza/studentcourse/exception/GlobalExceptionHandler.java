@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
-@RestControllerAdvice
+@ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
+    // .class enforce spring to understand the exception, unless spring will treat as a normal java code
     public ResponseEntity<Map<String, Object>> handleValidationErrors(
+            // object here allows flexibility
             MethodArgumentNotValidException ex) {
 
         List<String> errors = new ArrayList<>();

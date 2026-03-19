@@ -2,7 +2,9 @@ package com.hamza.studentcourse.service;
 
 import com.hamza.studentcourse.entity.Student;
 import com.hamza.studentcourse.repository.StudentRepository;
-import com.hamza.studentcourse.exception.StudentNotFound;
+import com.hamza.studentcourse.exception.GlobalExceptionHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +14,8 @@ public class StudentServiceImpl implements StudentService {
 //A class uses implements to promise to provide concrete implementations for all methods defined in an interface.
 //extends: Creates a subclass that inherits properties and methods from a parent class, promoting code reuse.
     private final StudentRepository studentRepository;
+
+    private final Logger log = LoggerFactory.getLogger(StudentServiceImpl.class);
     // Dependency Injection
     public StudentServiceImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
@@ -20,13 +24,23 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student createStudent(Student student) {
 
+
         // check duplicate email
         studentRepository.findByEmail(student.getEmail())
                 .ifPresent(s -> {
-                    throw new RuntimeException("Email already exists");
+                    log.info("Email already exist logger");
                 });
+        Integer s = student.getAge();
+        if(s < 10) {
+            log.info("age is done.");
+        }
+        else {
+            log.info("Student successfully saved");
 
-        return studentRepository.save(student);
+            return studentRepository.save(student);
+        }
+        return null;
+
     }
 
     @Override
@@ -38,7 +52,7 @@ public class StudentServiceImpl implements StudentService {
     public Student getStudentById(Long id) {
 
         return studentRepository.findById(id)
-                .orElseThrow(() -> new StudentNotFound("Student not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("Student not found with id: " + id));
     }
 
     @Override

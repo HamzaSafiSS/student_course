@@ -1,6 +1,9 @@
 package com.hamza.studentcourse.entity;
 
+
 import jakarta.persistence.*; //This imports JPA annotations like @Entity, @Table, @Id...
+import java.util.List;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "students")
@@ -18,6 +21,9 @@ public class Student {
     private String email;
 
     private Integer age;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<Course> courses;
 
     public Student() {}
 

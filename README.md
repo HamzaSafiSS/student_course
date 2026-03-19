@@ -89,3 +89,13 @@ Validation Annotation comes from Jakarta Bean Validation and used to automatical
 It ensures invalid data is rejected nefore it reaches database.
 
 Global exception handling captures validation errors and returns a consistent structured response to the client.
+
+DAY-6
+1. OneToMany relationship is a relation when One entity can relate with many others
+but each of those relates back to only one.
+2. A foreign key is a column in one table that refers to the primary key in another table.
+3. | Type    | Meaning                                       |
+   | ------- | --------------------------------------------- |
+   | ALL     | Applies all operations (save, delete, update) |
+   | PERSIST | Save child when parent saved                  |
+   | REMOVE  | Delete child when parent deleted              |
