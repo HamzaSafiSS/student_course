@@ -10,6 +10,11 @@ import com.hamza.studentcourse.dto.StudentRequestDTO;
 import com.hamza.studentcourse.entity.Course;
 import com.hamza.studentcourse.service.CourseService;
 import jakarta.validation.Valid;
+import com.hamza.studentcourse.dto.PagedResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+
 
 import java.util.List;
 
@@ -37,11 +42,6 @@ public class StudentController {
         return new ResponseEntity<>(savedStudent, HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<List<Student>> getAllStudents() {
-        List<Student> students = studentService.getAllStudents();
-        return ResponseEntity.ok(students);
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
@@ -80,5 +80,24 @@ public class StudentController {
     public ResponseEntity<List<Course>> getCoursesByStudentId(@PathVariable Long id)  {
         List<Course> getCourse = courseService.getCoursesByStudentId(id);
         return ResponseEntity.ok(getCourse);
+    }
+    @GetMapping
+    public ResponseEntity<PagedResponse<Student>> getStudents(
+            @RequestParam(required = false) Integer age,
+            //@RequestParam = “take this value from the query string (the part after ? in the URL)”
+            @PageableDefault(size = 5) Pageable pageable) {
+
+        Page<Student> page = studentService.getStudents(age, pageable);
+
+        PagedResponse<Student> response = new PagedResponse<>(
+                page.getContent(),
+                page.getNumber(),
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages(),
+                page.isLast()
+        );
+
+        return ResponseEntity.ok(response);
     }
 }

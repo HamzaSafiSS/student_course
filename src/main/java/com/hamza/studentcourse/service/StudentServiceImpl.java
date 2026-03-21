@@ -5,6 +5,8 @@ import com.hamza.studentcourse.repository.StudentRepository;
 import com.hamza.studentcourse.exception.GlobalExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,6 +43,13 @@ public class StudentServiceImpl implements StudentService {
         }
         return null;
 
+    }
+    @Override
+    public Page<Student> getStudents(Integer age, Pageable pageable) {
+        if(age!=null) {
+            return studentRepository.findByAge(age, pageable);
+        }
+        return studentRepository.findAll(pageable);
     }
 
     @Override

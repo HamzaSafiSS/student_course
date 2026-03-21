@@ -99,3 +99,102 @@ but each of those relates back to only one.
    | ALL     | Applies all operations (save, delete, update) |
    | PERSIST | Save child when parent saved                  |
    | REMOVE  | Delete child when parent deleted              |
+
+DAY-7
+API DOCUMENTATION
+STUDENT API
+| Method | Endpoint           | Description                           |
+| ------ | ------------------ | ------------------------------------- |
+| POST   | /api/students      | Create student                        |
+| GET    | /api/students      | Get students (pagination + filtering) |
+| GET    | /api/students/{id} | Get student by ID                     |
+| PUT    | /api/students/{id} | Update student                        |
+| DELETE | /api/students/{id} | Delete student         
+
+COURSE API
+| Method | Endpoint                   | Description              |
+| ------ | -------------------------- | ------------------------ |
+| POST   | /api/students/{id}/courses | Add course to student    |
+| GET    | /api/students/{id}/courses | Get courses of a student |
+
+Pagination & Filtering
+| Endpoint                               | Description            |
+| -------------------------------------- | ---------------------- |
+| GET /api/students?page=0&size=5        | Pagination             |
+| GET /api/students?age=24               | Filtering              |
+| GET /api/students?age=24&page=0&size=5 | Pagination + Filtering |
+Sample JSON Request
+Create Student
+{
+"firstName": "Abel",
+"lastName": "Adisu",
+"email": "abel@example.com",
+"age": 24
+}
+
+Update Student
+
+{
+"firstName": "Abel",
+"lastName": "Updated",
+"email": "abel@example.com",
+"age": 25
+}
+
+Add Course to Student
+{
+"name": "Spring Boot",
+"description": "Backend development course"
+}
+
+Sample Error Response
+I try to add
+{
+"firstName": "",
+"lastName": "Safi",
+"age": 2
+}
+Error I face
+{
+"errors": [
+"First name must not be blank"
+],
+"timestamp": "2026-03-21T12:15:06.0106492",
+"status": 400
+}
+
+Database Schema Explanation
+Student Table.
+| Column     | Type    | Description        |
+| ---------- | ------- | ------------------ |
+| id         | Long    | Primary Key        |
+| first_name | String  | Student first name |
+| last_name  | String  | Student last name  |
+| email      | String  | Unique email       |
+| age        | Integer | Student age        |
+
+Courses Table
+
+| Column      | Type   | Description                         |
+| ----------- | ------ | ----------------------------------- |
+| id          | Long   | Primary Key                         |
+| name        | String | Course name                         |
+| description | String | Course description                  |
+| student_id  | Long   | Foreign key referencing students.id |
+
+Relationship
+One Student many courses
+
+How TO Run Locally
+Click the Run button
+
+Then open http://localhost:8090
+
+Future Improvements
+1. Add authentication
+2. Make role based
+3. Improve entity relationship
+4. Add another entity
+
+
+
