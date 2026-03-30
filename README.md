@@ -196,5 +196,20 @@ Future Improvements
 3. Improve entity relationship
 4. Add another entity
 
+PHASE-2
 
+Day-1
 
+1.Auditing lifecycle in JPA
+JPA auditing automatically tracks entity creation and update information such as timestamps and users.
+2.Difference: @Entity vs @MappedSuperclass
+@Entity creates a database table
+@MappedSuperclass shares fields across entities without creating a table
+3.Enum mapping strategies
+Enums can be stored as:
+
+STRING → readable (recommended)
+ORDINAL → numeric (not recommended)
+4.Embedded vs separate table
+Embedded:Embedded objects allow grouping fields inside an entity without creating a separate table.
+Separate Table: Creating a new table.

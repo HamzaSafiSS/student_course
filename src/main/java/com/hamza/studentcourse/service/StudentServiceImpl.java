@@ -28,21 +28,11 @@ public class StudentServiceImpl implements StudentService {
 
 
         // check duplicate email
-        studentRepository.findByEmail(student.getEmail())
-                .ifPresent(s -> {
+        studentRepository.findByEmail(student.getEmail()).
+                ifPresent(s -> {
                     log.info("Email already exist logger");
                 });
-        Integer s = student.getAge();
-        if(s < 10) {
-            log.info("age is done.");
-        }
-        else {
-            log.info("Student successfully saved");
-
-            return studentRepository.save(student);
-        }
-        return null;
-
+        return studentRepository.save(student);
     }
     @Override
     public Page<Student> getStudents(Integer age, Pageable pageable) {

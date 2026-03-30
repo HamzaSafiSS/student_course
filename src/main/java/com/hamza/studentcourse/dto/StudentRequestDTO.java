@@ -1,8 +1,8 @@
 package com.hamza.studentcourse.dto;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+
 
 public class StudentRequestDTO {
 
@@ -11,14 +11,6 @@ public class StudentRequestDTO {
 
     @NotBlank(message = "Last name must not be blank")
     private String lastName;
-
-    @Email(message = "Email must be valid")
-    private String email;
-
-//    @Min(value = 18, message = "Age must be at least 18")
-    private Integer age;
-
-    public StudentRequestDTO() {}
 
     public String getFirstName() {
         return firstName;
@@ -51,4 +43,13 @@ public class StudentRequestDTO {
     public void setAge(Integer age) {
         this.age = age;
     }
+
+    @Email(message = "Email must be valid")
+    private String email;
+
+//    @Min(value = 18, message = "Age must be at least 18")
+    private Integer age;
+
+    public StudentRequestDTO() {}
+
 }
