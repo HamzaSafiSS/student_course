@@ -1,5 +1,6 @@
 package com.hamza.studentcourse.service;
 
+import com.hamza.studentcourse.dto.StudentSummaryDTO;
 import com.hamza.studentcourse.entity.Student;
 import com.hamza.studentcourse.repository.StudentRepository;
 import com.hamza.studentcourse.exception.GlobalExceptionHandler;
@@ -8,16 +9,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import com.hamza.studentcourse.exception.StudentNotFoundException;
 
 import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentService {
-//A class uses implements to promise to provide concrete implementations for all methods defined in an interface.
+    //A class uses implements to promise to provide concrete implementations for all methods defined in an interface.
 //extends: Creates a subclass that inherits properties and methods from a parent class, promoting code reuse.
     private final StudentRepository studentRepository;
 
     private final Logger log = LoggerFactory.getLogger(StudentServiceImpl.class);
+
     // Dependency Injection
     public StudentServiceImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
@@ -34,17 +37,13 @@ public class StudentServiceImpl implements StudentService {
                 });
         return studentRepository.save(student);
     }
+
     @Override
     public Page<Student> getStudents(Integer age, Pageable pageable) {
-        if(age!=null) {
+        if (age != null) {
             return studentRepository.findByAge(age, pageable);
         }
         return studentRepository.findAll(pageable);
-    }
-
-    @Override
-    public List<Student> getAllStudents() {
-        return studentRepository.findAll();
     }
 
     @Override
@@ -73,5 +72,30 @@ public class StudentServiceImpl implements StudentService {
         Student student = getStudentById(id);
 
         studentRepository.delete(student);
+    }
+
+    @Override
+    public List<Student> getStudentsOlderThan(Integer age) {
+        return studentRepository.findStudentsOlderThan(age);
+    }
+
+    @Override
+    public List<Student> getStudentsYoungerThan(Integer age) {
+        return studentRepository.findStudentsYoungerThan(age);
+    }
+
+    @Override
+    public Student getStudentByEmail(String email) {
+        return studentRepository.findByEmail(email)
+                .orElseThrow(() -> new StudentNotFoundException("Student not found"));
+    }
+
+    @Override
+    public List<StudentSummaryDTO> getStudentSummaries() {
+        return studentRepository.getStudentSummaries();
+    }
+    @Override
+    public Page<Student> getAllStudents (Pageable pageable){
+        return studentRepository.findAll(pageable);
     }
 }

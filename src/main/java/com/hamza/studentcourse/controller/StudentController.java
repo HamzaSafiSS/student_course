@@ -2,7 +2,6 @@ package com.hamza.studentcourse.controller;
 
 import com.hamza.studentcourse.entity.Student;
 import com.hamza.studentcourse.service.StudentService;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +13,8 @@ import com.hamza.studentcourse.dto.PagedResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import com.hamza.studentcourse.dto.StudentSummaryDTO;
+import java.util.List;
 
 
 import java.util.List;
@@ -99,5 +100,34 @@ public class StudentController {
         );
 
         return ResponseEntity.ok(response);
+    }
+    // Find by email
+    @GetMapping("/email")
+    public Student getByEmail(@RequestParam String email) {
+        return studentService.getStudentByEmail(email);
+    }
+
+    // JPQL - older than
+    @GetMapping("/older-than")
+    public List<Student> getOlderThan(@RequestParam Integer age) {
+        return studentService.getStudentsOlderThan(age);
+    }
+
+    // Native - younger than
+    @GetMapping("/younger-than")
+    public List<Student> getYoungerThan(@RequestParam Integer age) {
+        return studentService.getStudentsYoungerThan(age);
+    }
+
+    // DTO projection
+    @GetMapping("/summary")
+    public List<StudentSummaryDTO> getSummaries() {
+        return studentService.getStudentSummaries();
+    }
+
+    // Pagination + Sorting
+    @GetMapping
+    public Page<Student> getAll(Pageable pageable) {
+        return studentService.getAllStudents(pageable);
     }
 }

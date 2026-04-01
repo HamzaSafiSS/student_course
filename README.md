@@ -213,3 +213,20 @@ ORDINAL → numeric (not recommended)
 4.Embedded vs separate table
 Embedded:Embedded objects allow grouping fields inside an entity without creating a separate table.
 Separate Table: Creating a new table.
+
+DAY-2
+
+1. JPQL vs Native SQL
+JPQL uses entity names and fields
+Native SQL uses actual database tables
+
+2. When to Use Projections
+We Use projections when:
+
+We only need specific fields
+We want better performance
+
+3. Query Performance Considerations
+   We should Use pagination to limit data
+   We should Use projections to reduce response size
+   We should Avoid unnecessary full entity loading
