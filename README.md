@@ -230,3 +230,36 @@ We want better performance
    We should Use pagination to limit data
    We should Use projections to reduce response size
    We should Avoid unnecessary full entity loading
+DAY-3
+1.Transaction Lifecycle
+
+Transaction Start
+↓
+Execute DB Operations
+↓
+Success → Commit 
+Failure → Rollback
+2.LAZY vs EAGER
+| Type  | Description                    |
+| ----- | ------------------------------ |
+| LAZY  | Loads data only when accessed  |
+| EAGER | Loads related data immediately |
+
+3. N+1 Problem
+Occurs when 1 query for parent + N queries for child
+
+Example :
+Get all students → 1 query
+Get courses for each student → N queries
+Total = N+1 queries
+Solution
+@Query("SELECT s FROM Student s JOIN FETCH s.courses")
+
+Loads everything in one query
+
+4. CASCADE TYPES
+   | Type    | Description                         |
+   | ------- | ----------------------------------- |
+   | PERSIST | Save child when parent is saved     |
+   | REMOVE  | Delete child when parent is deleted |
+

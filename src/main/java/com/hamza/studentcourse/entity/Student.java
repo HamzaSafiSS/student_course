@@ -27,7 +27,9 @@ public class Student extends BaseEntity {
     // will be embedded inside the students table as additional columns.
     private Address address;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "student",
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY)
     private List<Course> courses;
 
     public Student() {}

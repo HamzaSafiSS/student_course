@@ -12,6 +12,9 @@ import java.util.Optional;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
+    @Query("SELECT DISTINCT s FROM Student s JOIN FETCH s.courses")
+    List<Student> findAllWithCourses();
+
     // 1️⃣ JPQL - Find by email
     Optional<Student> findByEmail(String email);
 

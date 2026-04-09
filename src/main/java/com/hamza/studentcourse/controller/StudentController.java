@@ -43,6 +43,17 @@ public class StudentController {
         return new ResponseEntity<>(savedStudent, HttpStatus.CREATED);
     }
 
+    @GetMapping("/with-courses")
+    public List<Student> getAllWithCourses() {
+        return studentService.getAllStudentsWithCourses();
+    }
+
+    @PostMapping("/batch")
+    public String batchInsert(@RequestBody List<Student> students) {
+        studentService.saveAllStudents(students);
+        return "Batch insert successful";
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Student> getStudentById(@PathVariable Long id) {

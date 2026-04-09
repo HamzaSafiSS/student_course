@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.hamza.studentcourse.exception.StudentNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,16 +27,29 @@ public class StudentServiceImpl implements StudentService {
         this.studentRepository = studentRepository;
     }
 
+    @Transactional
     @Override
     public Student createStudent(Student student) {
 
+        Student saved = studentRepository.save(student);
 
-        // check duplicate email
-        studentRepository.findByEmail(student.getEmail()).
-                ifPresent(s -> {
-                    log.info("Email already exist logger");
-                });
-        return studentRepository.save(student);
+        // simulate error
+        if (saved.getAge() < 18) {
+            throw new RuntimeException("Invalid age");
+        }
+
+        return saved;
+    }
+
+    @Override
+    public List<Student> getAllStudentsWithCourses() {
+        return studentRepository.findAllWithCourses();
+    }
+
+    @Override
+    @Transactional
+    public void saveAllStudents(List<Student> students) {
+        studentRepository.saveAll(students);
     }
 
     @Override
