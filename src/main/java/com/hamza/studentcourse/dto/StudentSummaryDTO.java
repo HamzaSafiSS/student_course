@@ -3,18 +3,51 @@ package com.hamza.studentcourse.dto;
 public class StudentSummaryDTO {
 
     private Long id;
-    private String fullName;
+    private String firstName;
+    private String lastName;
+    private String email;
 
-    public StudentSummaryDTO(Long id, String fullName) {
+    // MANDATORY constructor that matches the JPQL "new" expression (4 parameters)
+    public StudentSummaryDTO(Long id, String firstName, String lastName, String email) {
         this.id = id;
-        this.fullName = fullName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
     }
 
+    // No-args constructor (good practice, especially if using in other places)
+    public StudentSummaryDTO() {}
+
+    // Getters
     public Long getId() {
         return id;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    // Optional: helper method for full name
     public String getFullName() {
-        return fullName;
+        return (firstName != null ? firstName : "") +
+                (lastName != null ? " " + lastName : "");
+    }
+
+    @Override
+    public String toString() {
+        return "StudentSummaryDTO{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

@@ -3,11 +3,15 @@ package com.hamza.studentcourse.service;
 import com.hamza.studentcourse.entity.Student;
 import com.hamza.studentcourse.dto.StudentSummaryDTO;
 import java.util.List;
+
+import com.hamza.studentcourse.entity.StudentStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 
 public interface StudentService {
+
+    List<Student> filterStudents(Integer age, StudentStatus status, String name);
 
     Page<Student> getStudents(Integer age, Pageable pageable);
 

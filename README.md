@@ -263,3 +263,22 @@ Loads everything in one query
    | PERSIST | Save child when parent is saved     |
    | REMOVE  | Delete child when parent is deleted |
 
+DAY-4
+1. What is Specification Pattern
+Specification is a way to build dynamic database queries using reusable conditions.
+2. Why Dynamic Queries Matter
+   Avoid writing many methods like: findByAgeAndStatusAndName
+Instead:
+Build queries dynamically based on user input
+3. Clean API Response Design
+Standard response:
+{
+"data": [],
+"message": "Success",
+"status": 200
+}
+4. Logging and Debugging Queries
+Enable logging to:
+See generated SQL queries
+Debug performance issues
+Detect N+1 problems

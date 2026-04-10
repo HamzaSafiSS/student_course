@@ -2,12 +2,14 @@ package com.hamza.studentcourse.service;
 
 import com.hamza.studentcourse.dto.StudentSummaryDTO;
 import com.hamza.studentcourse.entity.Student;
+import com.hamza.studentcourse.entity.StudentStatus;
 import com.hamza.studentcourse.repository.StudentRepository;
-import com.hamza.studentcourse.exception.GlobalExceptionHandler;
+import com.hamza.studentcourse.specification.StudentSpecification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import com.hamza.studentcourse.exception.StudentNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +41,17 @@ public class StudentServiceImpl implements StudentService {
         }
 
         return saved;
+    }
+
+    @Override
+    public List<Student> filterStudents(Integer age, StudentStatus status, String name) {
+
+        Specification<Student> spec = Specification
+                .where(StudentSpecification.hasAge(age))
+                .and(StudentSpecification.hasStatus(status))
+                .and(StudentSpecification.hasName(name));
+
+        return studentRepository.findAll(spec);
     }
 
     @Override
