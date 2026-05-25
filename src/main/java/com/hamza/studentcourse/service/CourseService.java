@@ -9,4 +9,6 @@ public interface CourseService {
     Course addCourseToStudent(Long studentId, Course course);
 
     List<Course> getCoursesByStudentId(Long studentId);
+
+
 }
