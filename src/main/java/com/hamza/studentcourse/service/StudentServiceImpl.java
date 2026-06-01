@@ -15,6 +15,7 @@ import com.hamza.studentcourse.exception.StudentNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -31,6 +32,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Transactional
     @Override
+    @PreAuthorize("hasAuthority('STUDENT_CREATE')")
     public Student createStudent(Student student) {
 
         Student saved = studentRepository.save(student);
@@ -44,6 +46,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('STUDENT_READ')")
     public List<Student> filterStudents(Integer age, StudentStatus status, String name) {
 
         Specification<Student> spec = Specification
@@ -55,6 +58,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('STUDENT_READ')")
     public List<Student> getAllStudentsWithCourses() {
         return studentRepository.findAllWithCourses();
     }
@@ -66,6 +70,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('STUDENT_READ')")
     public Page<Student> getStudents(Integer age, Pageable pageable) {
         if (age != null) {
             return studentRepository.findByAge(age, pageable);
@@ -74,6 +79,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('STUDENT_READ')")
     public Student getStudentById(Long id) {
 
         return studentRepository.findById(id)
@@ -81,6 +87,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @PreAuthorize(
+            "hasRole('ADMIN') or @securityService.isOwner(#id, authentication)"
+    )
     public Student updateStudent(Long id, Student student) {
 
         Student existingStudent = getStudentById(id);
@@ -93,6 +102,7 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.save(existingStudent);
     }
 
+    @PreAuthorize("hasAuthority('STUDENT_DELETE')")
     @Override
     public void deleteStudent(Long id) {
 
@@ -101,26 +111,32 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.delete(student);
     }
 
+    @PreAuthorize("hasAuthority('STUDENT_READ')")
     @Override
     public List<Student> getStudentsOlderThan(Integer age) {
         return studentRepository.findStudentsOlderThan(age);
     }
 
+    @PreAuthorize("hasAuthority('STUDENT_READ')")
     @Override
     public List<Student> getStudentsYoungerThan(Integer age) {
         return studentRepository.findStudentsYoungerThan(age);
     }
 
+    @PreAuthorize("hasAuthority('STUDENT_READ')")
     @Override
     public Student getStudentByEmail(String email) {
         return studentRepository.findByEmail(email)
                 .orElseThrow(() -> new StudentNotFoundException("Student not found"));
     }
 
+    @PreAuthorize("hasAuthority('STUDENT_READ')")
     @Override
     public List<StudentSummaryDTO> getStudentSummaries() {
         return studentRepository.getStudentSummaries();
     }
+
+    @PreAuthorize("hasAuthority('STUDENT_READ')")
     @Override
     public Page<Student> getAllStudents (Pageable pageable){
         return studentRepository.findAll(pageable);

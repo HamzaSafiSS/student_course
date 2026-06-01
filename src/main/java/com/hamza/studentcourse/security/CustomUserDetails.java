@@ -1,5 +1,7 @@
 package com.hamza.studentcourse.security;
 
+import java.util.HashSet;
+import java.util.Set;
 import com.hamza.studentcourse.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,10 +22,22 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        return user.getRoles()
-                .stream()
-                .map(role -> new SimpleGrantedAuthority(role.name()))
-                .collect(Collectors.toList());
+        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+
+        user.getRoles().forEach(role -> {
+
+            authorities.add(
+                    new SimpleGrantedAuthority(role.name())
+            );
+
+            role.getPermissions().forEach(permission ->
+                    authorities.add(
+                            new SimpleGrantedAuthority(permission.name())
+                    )
+            );
+        });
+
+        return authorities;
     }
 
     @Override
