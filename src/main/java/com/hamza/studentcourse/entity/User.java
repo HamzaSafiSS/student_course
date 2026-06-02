@@ -26,11 +26,14 @@ public class User extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
+    private Integer failedAttempts = 0;
+
+    private boolean accountLocked = false;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
     public User() {
     }
-
 }
