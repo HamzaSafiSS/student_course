@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface StudentRepository
         extends JpaRepository<Student, Long>, JpaSpecificationExecutor<Student> {
 
-    @Query("SELECT s FROM Student s LEFT JOIN FETCH s.courses")
+    @Query("SELECT DISTINCT s FROM Student s LEFT JOIN FETCH s.courses")
     List<Student> findAllWithCourses();
 
     Page<Student> findByAge(Integer age, Pageable pageable);

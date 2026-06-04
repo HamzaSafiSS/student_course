@@ -3,6 +3,7 @@ package com.hamza.studentcourse.entity;
 import jakarta.persistence.*;
 
 import java.util.List;
+
 @Entity
 @Table(name = "students")
 public class Student extends BaseEntity {
@@ -23,7 +24,7 @@ public class Student extends BaseEntity {
     private StudentStatus status;
 
     @Embedded
-    //Means the Address class fields (street, city, country, etc.)
+    // Means the Address class fields (street, city, country, etc.)
     // will be embedded inside the students table as additional columns.
     private Address address;
 
@@ -32,7 +33,8 @@ public class Student extends BaseEntity {
             fetch = FetchType.LAZY)
     private List<Course> courses;
 
-    public Student() {}
+    public Student() {
+    }
 
     // getters and setters
 
