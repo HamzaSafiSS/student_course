@@ -1,0 +1,2 @@
+-- Test data file intentionally left empty.
+-- Tests create their own data programmatically.
