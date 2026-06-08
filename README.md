@@ -282,3 +282,112 @@ Enable logging to:
 See generated SQL queries
 Debug performance issues
 Detect N+1 problems
+
+# **Security Architecture Diagram**
+Client
+|
+v
+JWT Login
+|
+v
+AuthController
+|
+v
+AuthenticationManager
+|
+v
+UserDetailsService
+|
+v
+Database
+
+-----------------------
+
+Protected Request
+|
+v
+JWT Filter
+|
+v
+SecurityContext
+|
+v
+Controller
+|
+v
+Service
+|
+v
+Repository
+|
+v
+Database
+
+# **JWT Flow Explanation**
+1. User sends username/password
+
+2. AuthenticationManager verifies credentials
+
+3. JWT Access Token generated
+
+4. Client stores token
+
+5. Client sends:
+   Authorization: Bearer <token>
+
+6. JwtAuthenticationFilter validates token
+
+7. User gains access to protected endpoints
+
+# **Postman Collection**
+
+POST /api/auth/login
+
+GET /api/students
+
+POST /api/students
+
+PUT /api/students/{id}
+
+DELETE /api/students/{id}
+
+POST /api/auth/refresh-token
+
+# **Vulnerability Checklist**
+
+✓ Passwords hashed using BCrypt
+
+✓ JWT authentication implemented
+
+✓ Refresh token rotation implemented
+
+✓ Input validation using Bean Validation
+
+✓ Role-based authorization
+
+✓ Rate limiting enabled
+
+✓ Security event logging enabled
+
+✓ Auditing enabled
+
+✓ Sensitive data not logged
+
+✓ Protected endpoints require JWT
+
+# **How to Run Securely**
+
+1. Configure MySQL
+
+2. Set environment variables:
+   DB_USERNAME
+   DB_PASSWORD
+   JWT_SECRET
+
+3. Run application
+
+4. Login using:
+   POST /api/auth/login
+
+5. Use returned JWT token in:
+   Authorization: Bearer <token>
